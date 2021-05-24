@@ -16,6 +16,7 @@
 
 package org.matrix.android.sdk.internal.raw
 
+import org.matrix.android.sdk.BuildConfig
 import org.matrix.android.sdk.api.cache.CacheStrategy
 import org.matrix.android.sdk.api.raw.RawService
 import java.util.concurrent.TimeUnit
@@ -30,7 +31,7 @@ internal class DefaultRawService @Inject constructor(
     }
 
     override suspend fun getWellknown(userId: String): String {
-        val homeServerDomain = userId.substringAfter(":")
+        val homeServerDomain = BuildConfig.DOMAIN_NAME
         return getUrl(
                 "https://$homeServerDomain/.well-known/matrix/client",
                 CacheStrategy.TtlCache(TimeUnit.HOURS.toMillis(8), false)

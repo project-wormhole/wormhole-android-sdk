@@ -45,6 +45,7 @@ import org.matrix.android.sdk.internal.network.executeRequest
 import org.matrix.android.sdk.internal.network.httpclient.addSocketFactory
 import org.matrix.android.sdk.internal.network.ssl.UnrecognizedCertificateException
 import org.matrix.android.sdk.internal.wellknown.GetWellknownTask
+import org.matrix.android.sdk.wormhole.WormholeConfigProvider
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
 
@@ -96,6 +97,8 @@ internal class DefaultAuthenticationService @Inject constructor(
             }
             // Set the redirect url
             appendParamToUrl(SSO_REDIRECT_URL_PARAM, redirectUrl)
+            appendParamToUrl(WORMHOLE_PARAM_APP_ID, WormholeConfigProvider.appId)
+            appendParamToUrl(WORMHOLE_PARAM_ACCESS_TOKEN, WormholeConfigProvider.accessToken)
             deviceId?.takeIf { it.isNotBlank() }?.let {
                 // But https://github.com/matrix-org/synapse/issues/5755
                 appendParamToUrl("device_id", it)
@@ -144,16 +147,14 @@ internal class DefaultAuthenticationService @Inject constructor(
         }
         return result.fold(
                 {
-                    if (it is LoginFlowResult.Success) {
-                        // The homeserver exists and up to date, keep the config
-                        // Homeserver url may have been changed, if it was a Riot url
-                        val alteredHomeServerConnectionConfig = homeServerConnectionConfig.copy(
-                                homeServerUri = Uri.parse(it.homeServerUrl)
-                        )
+                    // The homeserver exists and up to date, keep the config
+                    // Homeserver url may have been changed, if it was a Riot url
+                    val alteredHomeServerConnectionConfig = homeServerConnectionConfig.copy(
+                            homeServerUri = Uri.parse(it.homeServerUrl)
+                    )
 
-                        pendingSessionData = PendingSessionData(alteredHomeServerConnectionConfig)
-                                .also { data -> pendingSessionStore.savePendingSessionData(data) }
-                    }
+                    pendingSessionData = PendingSessionData(alteredHomeServerConnectionConfig)
+                            .also { data -> pendingSessionStore.savePendingSessionData(data) }
                     it
                 },
                 {
@@ -307,12 +308,12 @@ internal class DefaultAuthenticationService @Inject constructor(
         val loginFlowResponse = executeRequest(null) {
             authAPI.getLoginFlows()
         }
-        return LoginFlowResult.Success(
-                loginFlowResponse.flows.orEmpty().mapNotNull { it.type },
-                loginFlowResponse.flows.orEmpty().firstOrNull { it.type == LoginFlowTypes.SSO }?.ssoIdentityProvider,
-                versions.isLoginAndRegistrationSupportedBySdk(),
-                homeServerUrl,
-                !versions.isSupportedBySdk()
+        return LoginFlowResult(
+                supportedLoginTypes = loginFlowResponse.flows.orEmpty().mapNotNull { it.type },
+                ssoIdentityProviders = loginFlowResponse.flows.orEmpty().firstOrNull { it.type == LoginFlowTypes.SSO }?.ssoIdentityProvider,
+                isLoginAndRegistrationSupported = versions.isLoginAndRegistrationSupportedBySdk(),
+                homeServerUrl = homeServerUrl,
+                isOutdatedHomeserver = !versions.isSupportedBySdk()
         )
     }
 

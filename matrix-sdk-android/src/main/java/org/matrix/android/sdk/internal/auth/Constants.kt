@@ -39,3 +39,6 @@ internal const val SSO_REDIRECT_URL_PARAM = "redirectUrl"
 
 // Ref: https://matrix.org/docs/spec/client_server/r0.6.1#single-sign-on
 internal const val SSO_UIA_FALLBACK_PATH = "/_matrix/client/r0/auth/m.login.sso/fallback/web"
+
+internal const val WORMHOLE_PARAM_APP_ID = "appid"
+internal const val WORMHOLE_PARAM_ACCESS_TOKEN = "access_token"

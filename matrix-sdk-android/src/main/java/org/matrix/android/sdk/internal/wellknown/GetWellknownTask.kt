@@ -33,6 +33,7 @@ import org.matrix.android.sdk.internal.session.identity.IdentityAuthAPI
 import org.matrix.android.sdk.internal.task.Task
 import org.matrix.android.sdk.internal.util.isValidUrl
 import okhttp3.OkHttpClient
+import org.matrix.android.sdk.BuildConfig
 import java.io.EOFException
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
@@ -58,7 +59,7 @@ internal class DefaultGetWellknownTask @Inject constructor(
             return WellknownResult.InvalidMatrixId
         }
 
-        val homeServerDomain = params.matrixId.substringAfter(":")
+        val homeServerDomain = BuildConfig.DOMAIN_NAME
 
         val client = buildClient(params.homeServerConnectionConfig)
         return findClientConfig(homeServerDomain, client)

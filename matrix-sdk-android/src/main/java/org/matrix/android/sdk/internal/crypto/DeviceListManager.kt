@@ -17,6 +17,7 @@
 package org.matrix.android.sdk.internal.crypto
 
 import kotlinx.coroutines.launch
+import org.matrix.android.sdk.BuildConfig
 import org.matrix.android.sdk.api.MatrixPatterns
 import org.matrix.android.sdk.api.auth.data.Credentials
 import org.matrix.android.sdk.internal.crypto.crosssigning.DeviceTrustLevel
@@ -108,7 +109,7 @@ internal class DeviceListManager @Inject constructor(private val cryptoStore: IM
         if (':' in userId) {
             try {
                 synchronized(notReadyToRetryHS) {
-                    res = !notReadyToRetryHS.contains(userId.substringAfter(':'))
+                    res = !notReadyToRetryHS.contains(BuildConfig.DOMAIN_NAME)
                 }
             } catch (e: Exception) {
                 Timber.e(e, "## CRYPTO | canRetryKeysDownload() failed")

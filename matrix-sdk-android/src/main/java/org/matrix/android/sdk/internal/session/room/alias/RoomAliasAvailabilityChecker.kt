@@ -16,6 +16,7 @@
 
 package org.matrix.android.sdk.internal.session.room.alias
 
+import org.matrix.android.sdk.BuildConfig
 import org.matrix.android.sdk.api.failure.Failure
 import org.matrix.android.sdk.api.session.room.alias.RoomAliasError
 import org.matrix.android.sdk.internal.di.UserId
@@ -36,7 +37,11 @@ internal class RoomAliasAvailabilityChecker @Inject constructor(
     @Throws(RoomAliasError::class)
     suspend fun check(aliasLocalPart: String?) {
         if (aliasLocalPart.isNullOrEmpty()) {
-            throw RoomAliasError.AliasEmpty
+            // don't check empty or not provided alias
+            return
+        }
+        if (aliasLocalPart.isBlank()) {
+            throw RoomAliasError.AliasIsBlank
         }
         // Check alias availability
         val fullAlias = aliasLocalPart.toFullLocalAlias(userId)
@@ -60,6 +65,6 @@ internal class RoomAliasAvailabilityChecker @Inject constructor(
     }
 
     companion object {
-        internal fun String.toFullLocalAlias(userId: String) = "#" + this + ":" + userId.substringAfter(":")
+        internal fun String.toFullLocalAlias(userId: String) = "#" + this + ":" + BuildConfig.DOMAIN_NAME
     }
 }

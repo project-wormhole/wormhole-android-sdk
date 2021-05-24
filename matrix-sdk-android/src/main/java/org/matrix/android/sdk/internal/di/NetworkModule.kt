@@ -29,6 +29,7 @@ import org.matrix.android.sdk.internal.network.interceptors.FormattedJsonHttpLog
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.matrix.android.sdk.internal.network.ApiInterceptor
+import org.matrix.android.sdk.internal.network.WormholeInterceptor
 import java.util.concurrent.TimeUnit
 
 @Module
@@ -65,7 +66,8 @@ internal object NetworkModule {
                              userAgentInterceptor: UserAgentInterceptor,
                              httpLoggingInterceptor: HttpLoggingInterceptor,
                              curlLoggingInterceptor: CurlLoggingInterceptor,
-                             apiInterceptor: ApiInterceptor): OkHttpClient {
+                             apiInterceptor: ApiInterceptor,
+                             wormholeInterceptor: WormholeInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -85,6 +87,11 @@ internal object NetworkModule {
                     }
                     matrixConfiguration.proxy?.let {
                         proxy(it)
+                    }
+                }
+                .apply {
+                    if (BuildConfig.WORMHOLE_ENABLED) {
+                        addInterceptor(wormholeInterceptor)
                     }
                 }
                 .build()

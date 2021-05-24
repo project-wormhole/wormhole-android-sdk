@@ -16,6 +16,8 @@
 
 package org.matrix.android.sdk.api
 
+import org.matrix.android.sdk.BuildConfig
+
 /**
  * This class contains pattern to match the different Matrix ids
  */
@@ -144,6 +146,6 @@ object MatrixPatterns {
      * @return null if not found or if matrixId is null
      */
     fun extractServerNameFromId(matrixId: String?): String? {
-        return matrixId?.substringAfter(":", missingDelimiterValue = "")?.takeIf { it.isNotEmpty() }
+        return BuildConfig.DOMAIN_NAME
     }
 }
