@@ -22,7 +22,7 @@ import com.squareup.moshi.Moshi
 import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient
-import org.wormhole.android.sdk.api.Matrix
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.api.MatrixConfiguration
 import org.wormhole.android.sdk.api.auth.AuthenticationService
 import org.wormhole.android.sdk.api.auth.HomeServerHistoryService
@@ -84,7 +84,7 @@ internal interface MatrixComponent {
 
     fun sessionManager(): SessionManager
 
-    fun inject(matrix: Matrix)
+    fun inject(wormhole: Wormhole)
 
     @Component.Factory
     interface Factory {

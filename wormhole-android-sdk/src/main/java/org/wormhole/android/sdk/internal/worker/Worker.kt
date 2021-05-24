@@ -17,9 +17,9 @@
 package org.wormhole.android.sdk.internal.worker
 
 import androidx.work.ListenableWorker
-import org.wormhole.android.sdk.api.Matrix
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.internal.session.SessionComponent
 
 internal fun ListenableWorker.getSessionComponent(sessionId: String): SessionComponent? {
-    return Matrix.getInstance(applicationContext).sessionManager.getSessionComponent(sessionId)
+    return Wormhole.getInstance(applicationContext).sessionManager.getSessionComponent(sessionId)
 }
