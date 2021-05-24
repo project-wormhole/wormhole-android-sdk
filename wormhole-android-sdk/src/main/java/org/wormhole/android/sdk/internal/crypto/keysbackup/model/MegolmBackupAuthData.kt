@@ -22,7 +22,7 @@ import org.wormhole.android.sdk.api.util.JsonDict
 import org.wormhole.android.sdk.internal.di.MoshiProvider
 
 /**
- * Data model for [org.wormhole.androidsdk.rest.model.keys.KeysAlgorithmAndData.authData] in case
+ * Data model for [org.wormhole.android.sdk.rest.model.keys.KeysAlgorithmAndData.authData] in case
  * of [org.wormhole.androidsdk.crypto.MXCRYPTO_ALGORITHM_MEGOLM_BACKUP].
  */
 @JsonClass(generateAdapter = true)
