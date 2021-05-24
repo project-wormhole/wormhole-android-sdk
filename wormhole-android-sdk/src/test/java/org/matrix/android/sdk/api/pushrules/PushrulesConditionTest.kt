@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.pushrules
+package org.wormhole.android.sdk.api.pushrules
 
 import io.mockk.every
 import io.mockk.mockk
@@ -22,14 +22,14 @@ import org.amshove.kluent.shouldBe
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.matrix.android.sdk.MatrixTest
-import org.matrix.android.sdk.api.session.events.model.Event
-import org.matrix.android.sdk.api.session.events.model.toContent
-import org.matrix.android.sdk.api.session.room.Room
-import org.matrix.android.sdk.api.session.room.model.Membership
-import org.matrix.android.sdk.api.session.room.model.RoomMemberContent
-import org.matrix.android.sdk.api.session.room.model.message.MessageTextContent
-import org.matrix.android.sdk.internal.session.room.RoomGetter
+import org.wormhole.android.sdk.MatrixTest
+import org.wormhole.android.sdk.api.session.events.model.Event
+import org.wormhole.android.sdk.api.session.events.model.toContent
+import org.wormhole.android.sdk.api.session.room.Room
+import org.wormhole.android.sdk.api.session.room.model.Membership
+import org.wormhole.android.sdk.api.session.room.model.RoomMemberContent
+import org.wormhole.android.sdk.api.session.room.model.message.MessageTextContent
+import org.wormhole.android.sdk.internal.session.room.RoomGetter
 
 class PushRulesConditionTest : MatrixTest {
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.task
+package org.wormhole.android.sdk.internal.task
 
-import org.matrix.android.sdk.MatrixTest
+import org.wormhole.android.sdk.MatrixTest
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.delay
