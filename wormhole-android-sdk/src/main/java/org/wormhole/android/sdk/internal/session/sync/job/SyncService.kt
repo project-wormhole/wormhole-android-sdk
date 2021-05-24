@@ -24,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
-import org.wormhole.android.sdk.api.Matrix
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.api.failure.Failure
 import org.wormhole.android.sdk.api.failure.isTokenError
 import org.wormhole.android.sdk.api.session.Session
@@ -198,7 +198,7 @@ abstract class SyncService : Service() {
             Timber.d("## Sync: initialize intent is null")
             return false
         }
-        val matrix = Matrix.getInstance(applicationContext)
+        val matrix = Wormhole.getInstance(applicationContext)
         val safeSessionId = intent.getStringExtra(EXTRA_SESSION_ID) ?: return false
         syncTimeoutSeconds = intent.getIntExtra(EXTRA_TIMEOUT_SECONDS, getDefaultSyncTimeoutSeconds())
         syncDelaySeconds = intent.getIntExtra(EXTRA_DELAY_SECONDS, getDefaultSyncDelaySeconds())
