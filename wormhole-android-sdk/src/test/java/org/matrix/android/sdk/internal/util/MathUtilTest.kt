@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.util
+package org.wormhole.android.sdk.internal.util
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldHaveSize
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
-import org.matrix.android.sdk.MatrixTest
+import org.wormhole.android.sdk.MatrixTest
 
 @FixMethodOrder(MethodSorters.JVM)
 class MathUtilTest : MatrixTest {

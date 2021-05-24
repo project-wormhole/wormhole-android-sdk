@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.util
+package org.wormhole.android.sdk.internal.util
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -22,8 +22,8 @@ import org.junit.Assert.assertTrue
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
-import org.matrix.android.sdk.MatrixTest
-import org.matrix.android.sdk.internal.session.room.summary.Graph
+import org.wormhole.android.sdk.MatrixTest
+import org.wormhole.android.sdk.internal.session.room.summary.Graph
 
 @FixMethodOrder(MethodSorters.JVM)
 class GraphUtilsTest : MatrixTest {

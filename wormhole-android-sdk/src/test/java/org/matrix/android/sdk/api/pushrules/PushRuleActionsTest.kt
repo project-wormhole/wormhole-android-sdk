@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.api.pushrules
+package org.wormhole.android.sdk.api.pushrules
 
-import org.matrix.android.sdk.MatrixTest
-import org.matrix.android.sdk.api.pushrules.rest.PushRule
-import org.matrix.android.sdk.internal.di.MoshiProvider
+import org.wormhole.android.sdk.MatrixTest
+import org.wormhole.android.sdk.api.pushrules.rest.PushRule
+import org.wormhole.android.sdk.internal.di.MoshiProvider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue

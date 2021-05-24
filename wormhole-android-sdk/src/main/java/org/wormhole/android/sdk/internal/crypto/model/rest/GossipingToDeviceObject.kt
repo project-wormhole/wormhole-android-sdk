@@ -20,7 +20,7 @@ import com.squareup.moshi.JsonClass
 
 /**
  * Interface representing an room key action request
- * Note: this class cannot be abstract because of [org.wormhole.androidsdk.core.JsonUtils.toRoomKeyShare]
+ * Note: this class cannot be abstract because of [org.wormhole.android.sdk.core.JsonUtils.toRoomKeyShare]
  */
 interface GossipingToDeviceObject : SendToDeviceObject {
 
