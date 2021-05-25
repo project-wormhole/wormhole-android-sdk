@@ -19,6 +19,7 @@ package org.wormhole.android.sdk.internal.auth
 import android.net.Uri
 import dagger.Lazy
 import okhttp3.OkHttpClient
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.api.auth.AuthenticationService
 import org.wormhole.android.sdk.api.auth.data.Credentials
 import org.wormhole.android.sdk.api.auth.data.HomeServerConnectionConfig
@@ -45,7 +46,6 @@ import org.wormhole.android.sdk.internal.network.executeRequest
 import org.wormhole.android.sdk.internal.network.httpclient.addSocketFactory
 import org.wormhole.android.sdk.internal.network.ssl.UnrecognizedCertificateException
 import org.wormhole.android.sdk.internal.wellknown.GetWellknownTask
-import org.wormhole.android.sdk.wormhole.WormholeConfigProvider
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
 
@@ -97,8 +97,8 @@ internal class DefaultAuthenticationService @Inject constructor(
             }
             // Set the redirect url
             appendParamToUrl(SSO_REDIRECT_URL_PARAM, redirectUrl)
-            appendParamToUrl(WORMHOLE_PARAM_APP_ID, WormholeConfigProvider.appId)
-            appendParamToUrl(WORMHOLE_PARAM_ACCESS_TOKEN, WormholeConfigProvider.accessToken)
+            appendParamToUrl(WORMHOLE_PARAM_APP_ID, Wormhole.getWormholeApplicationId())
+            appendParamToUrl(WORMHOLE_PARAM_ACCESS_TOKEN, Wormhole.getWormholeAccessToken())
             deviceId?.takeIf { it.isNotBlank() }?.let {
                 // But https://github.com/matrix-org/synapse/issues/5755
                 appendParamToUrl("device_id", it)

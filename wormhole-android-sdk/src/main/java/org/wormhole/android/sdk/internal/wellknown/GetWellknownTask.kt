@@ -34,6 +34,7 @@ import org.wormhole.android.sdk.internal.task.Task
 import org.wormhole.android.sdk.internal.util.isValidUrl
 import okhttp3.OkHttpClient
 import org.wormhole.android.sdk.BuildConfig
+import org.wormhole.android.sdk.api.Wormhole
 import java.io.EOFException
 import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
@@ -59,7 +60,7 @@ internal class DefaultGetWellknownTask @Inject constructor(
             return WellknownResult.InvalidMatrixId
         }
 
-        val homeServerDomain = BuildConfig.DOMAIN_NAME
+        val homeServerDomain = Wormhole.getWormholeDomain()
 
         val client = buildClient(params.homeServerConnectionConfig)
         return findClientConfig(homeServerDomain, client)

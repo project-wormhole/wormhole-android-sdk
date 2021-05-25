@@ -17,6 +17,7 @@
 package org.wormhole.android.sdk.internal.session.room.alias
 
 import org.wormhole.android.sdk.BuildConfig
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.api.failure.Failure
 import org.wormhole.android.sdk.api.session.room.alias.RoomAliasError
 import org.wormhole.android.sdk.internal.di.UserId
@@ -65,6 +66,6 @@ internal class RoomAliasAvailabilityChecker @Inject constructor(
     }
 
     companion object {
-        internal fun String.toFullLocalAlias(userId: String) = "#" + this + ":" + BuildConfig.DOMAIN_NAME
+        internal fun String.toFullLocalAlias(userId: String) = "#" + this + ":" + Wormhole.getWormholeDomain()
     }
 }

@@ -146,6 +146,6 @@ object MatrixPatterns {
      * @return null if not found or if matrixId is null
      */
     fun extractServerNameFromId(matrixId: String?): String? {
-        return BuildConfig.DOMAIN_NAME
+        return Wormhole.getWormholeDomain()
     }
 }
