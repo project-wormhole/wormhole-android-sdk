@@ -89,11 +89,6 @@ internal object NetworkModule {
                         proxy(it)
                     }
                 }
-                .apply {
-                    if (BuildConfig.WORMHOLE_ENABLED) {
-                        addInterceptor(wormholeInterceptor)
-                    }
-                }
                 .build()
     }
 

@@ -96,9 +96,18 @@ class Matrix private constructor(context: Context, matrixConfiguration: MatrixCo
         private lateinit var instance: Matrix
         private val isInit = AtomicBoolean(false)
 
+        private var wormholeDevMode: Boolean = false
+        private var wormholeDomainStaging = "stage-api.wormholeim.org"
+        private var wormholeDomainProduction = "api.wormholeim.org"
+        private var wormholeAppId: String? = null
+        private var wormholeAccessToken: String? = null
+
         fun initialize(context: Context, matrixConfiguration: MatrixConfiguration) {
             if (isInit.compareAndSet(false, true)) {
                 instance = Matrix(context.applicationContext, matrixConfiguration)
+                wormholeAppId = matrixConfiguration.wormholeAppId
+                wormholeAccessToken = matrixConfiguration.wormholeAccessToken
+                wormholeDevMode = matrixConfiguration.wormholeDevMode
             }
         }
 
@@ -118,6 +127,28 @@ class Matrix private constructor(context: Context, matrixConfiguration: MatrixCo
 
         fun getSdkVersion(): String {
             return BuildConfig.VERSION_NAME + " (" + BuildConfig.GIT_SDK_REVISION + ")"
+        }
+
+        fun getWormholeApplicationId(): String {
+            if (wormholeAppId != null) {
+                return wormholeAppId!!
+            }else{
+                throw IllegalStateException("Wormhole is not initialized properly." +
+                        " You should set wormhole application id!")
+            }
+        }
+
+        fun getWormholeAccessToken(): String {
+            if (wormholeAccessToken != null) {
+                return wormholeAccessToken!!
+            }else{
+                throw IllegalStateException("Wormhole is not initialized properly." +
+                        " You should set wormhole access token!")
+            }
+        }
+
+        fun getWormholeDomain(): String {
+            return if (wormholeDevMode) wormholeDomainStaging else wormholeDomainProduction
         }
     }
 }

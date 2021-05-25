@@ -17,6 +17,7 @@
 package org.wormhole.android.sdk.internal.raw
 
 import org.wormhole.android.sdk.BuildConfig
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.api.cache.CacheStrategy
 import org.wormhole.android.sdk.api.raw.RawService
 import java.util.concurrent.TimeUnit
@@ -31,7 +32,7 @@ internal class DefaultRawService @Inject constructor(
     }
 
     override suspend fun getWellknown(userId: String): String {
-        val homeServerDomain = BuildConfig.DOMAIN_NAME
+        val homeServerDomain = Wormhole.getWormholeDomain()
         return getUrl(
                 "https://$homeServerDomain/.well-known/matrix/client",
                 CacheStrategy.TtlCache(TimeUnit.HOURS.toMillis(8), false)

@@ -90,9 +90,18 @@ class Wormhole private constructor(context: Context, matrixConfiguration: Matrix
         private lateinit var instance: Wormhole
         private val isInit = AtomicBoolean(false)
 
+        private var wormholeDevMode: Boolean = false
+        private var wormholeDomainStaging = "stage-api.wormholeim.org"
+        private var wormholeDomainProduction = "api.wormholeim.org"
+        private var wormholeAppId: String? = null
+        private var wormholeAccessToken: String? = null
+
         fun initialize(context: Context, matrixConfiguration: MatrixConfiguration) {
             if (isInit.compareAndSet(false, true)) {
                 instance = Wormhole(context.applicationContext, matrixConfiguration)
+                wormholeAppId = matrixConfiguration.wormholeAppId
+                wormholeAccessToken = matrixConfiguration.wormholeAccessToken
+                wormholeDevMode = matrixConfiguration.wormholeDevMode
             }
         }
 
@@ -103,7 +112,7 @@ class Wormhole private constructor(context: Context, matrixConfiguration: Matrix
                     val matrixConfiguration = (appContext as MatrixConfiguration.Provider).providesMatrixConfiguration()
                     instance = Wormhole(appContext, matrixConfiguration)
                 } else {
-                    throw IllegalStateException("Matrix is not initialized properly." +
+                    throw IllegalStateException("Wormhole is not initialized properly." +
                             " You should call Matrix.initialize or let your application implements MatrixConfiguration.Provider.")
                 }
             }
@@ -112,6 +121,28 @@ class Wormhole private constructor(context: Context, matrixConfiguration: Matrix
 
         fun getSdkVersion(): String {
             return BuildConfig.VERSION_NAME + " (" + BuildConfig.GIT_SDK_REVISION + ")"
+        }
+
+        fun getWormholeApplicationId(): String {
+            if (wormholeAppId != null) {
+                return wormholeAppId!!
+            }else{
+                throw IllegalStateException("Wormhole is not initialized properly." +
+                        " You should set wormhole application id!")
+            }
+        }
+
+        fun getWormholeAccessToken(): String {
+            if (wormholeAccessToken != null) {
+                return wormholeAccessToken!!
+            }else{
+                throw IllegalStateException("Wormhole is not initialized properly." +
+                        " You should set wormhole access token!")
+            }
+        }
+
+        fun getWormholeDomain(): String {
+            return if (wormholeDevMode) wormholeDomainStaging else wormholeDomainProduction
         }
     }
 }

@@ -20,6 +20,9 @@ import org.wormhole.android.sdk.api.crypto.MXCryptoConfig
 import java.net.Proxy
 
 data class MatrixConfiguration(
+        val wormholeAppId: String? = null,
+        val wormholeAccessToken: String? = null,
+        val wormholeDevMode: Boolean = false,
         val applicationFlavor: String = "Default-application-flavor",
         val cryptoConfig: MXCryptoConfig = MXCryptoConfig(),
         val integrationUIUrl: String = "https://scalar.vector.im/",

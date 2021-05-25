@@ -40,11 +40,6 @@ android {
         resValue "string", "git_sdk_revision_unix_date", "\"${gitRevisionUnixDate()}\""
         resValue "string", "git_sdk_revision_date", "\"${gitRevisionDate()}\""
 
-        buildConfigField "boolean", "WORMHOLE_ENABLED", project.property("wormhole.dev.enabled")
-        buildConfigField "String", "DOMAIN_NAME", project.property("wormhole.dev.domainName")
-        buildConfigField "String", "WORMHOLE_APP_ID", project.property("wormhole.appid")
-        buildConfigField "String", "WORMHOLE_ACCESS_TOKEN", project.property("wormhole.accessToken")
-
         defaultConfig {
             consumerProguardFiles 'proguard-rules.pro'
         }
@@ -60,15 +55,11 @@ android {
             buildConfigField "boolean", "LOG_PRIVATE_DATA", project.property("vector.debugPrivateData")
             // Set to BODY instead of NONE to enable logging
             buildConfigField "okhttp3.logging.HttpLoggingInterceptor.Level", "OKHTTP_LOGGING_LEVEL", "okhttp3.logging.HttpLoggingInterceptor.Level." + project.property("vector.httpLogLevel")
-            buildConfigField "boolean", "WORMHOLE_ENABLED", project.property("wormhole.dev.enabled")
-            buildConfigField "String", "DOMAIN_NAME", project.property("wormhole.dev.domainName")
         }
 
         release {
             buildConfigField "boolean", "LOG_PRIVATE_DATA", "false"
             buildConfigField "okhttp3.logging.HttpLoggingInterceptor.Level", "OKHTTP_LOGGING_LEVEL", "okhttp3.logging.HttpLoggingInterceptor.Level.BASIC"
-            buildConfigField "boolean", "WORMHOLE_ENABLED", project.property("wormhole.rel.enabled")
-            buildConfigField "String", "DOMAIN_NAME", project.property("wormhole.rel.domainName")
         }
     }
 

@@ -19,6 +19,7 @@ package org.wormhole.android.sdk.internal.crypto
 import kotlinx.coroutines.launch
 import org.wormhole.android.sdk.BuildConfig
 import org.wormhole.android.sdk.api.MatrixPatterns
+import org.wormhole.android.sdk.api.Wormhole
 import org.wormhole.android.sdk.api.auth.data.Credentials
 import org.wormhole.android.sdk.internal.crypto.crosssigning.DeviceTrustLevel
 import org.wormhole.android.sdk.internal.crypto.model.CryptoDeviceInfo
@@ -109,7 +110,7 @@ internal class DeviceListManager @Inject constructor(private val cryptoStore: IM
         if (':' in userId) {
             try {
                 synchronized(notReadyToRetryHS) {
-                    res = !notReadyToRetryHS.contains(BuildConfig.DOMAIN_NAME)
+                    res = !notReadyToRetryHS.contains(Wormhole.getWormholeDomain())
                 }
             } catch (e: Exception) {
                 Timber.e(e, "## CRYPTO | canRetryKeysDownload() failed")
